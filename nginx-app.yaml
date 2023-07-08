@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-blue-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-nginx-app
+      version: blue
+  template:
+    metadata:
+      name: hello-blue-nginx-pod
+      labels:
+        app: hello-nginx-app
+        version: blue
+    spec:
+      containers:
+      - name: hello-nginx-container
+        image: lyonga/nginx-test-app:nginx-test-app
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: hello-nginx-svc
+  labels:
+    app: hello-nginx-app
+spec:
+  selector:
+    app: hello-nginx-app
+    version: blue
+  type: NodePort
+  ports:
+  - nodePort: 31113
+    port: 80
+    targetPort: 80
