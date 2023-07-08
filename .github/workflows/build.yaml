@@ -1,4 +1,4 @@
-name: Build image and deploy to ECR
+name: Build docker image and deploy to ECR 
 
 on:
  
