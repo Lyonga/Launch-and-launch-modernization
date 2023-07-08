@@ -35,5 +35,5 @@ jobs:
         ECR_REPOSITORY: demo
         IMAGE_TAG: latest
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker build -t public.ecr.aws/v1j1f0e5/demo:$IMAGE_TAG .
+        docker push public.ecr.aws/v1j1f0e5/demo:$IMAGE_TAG
