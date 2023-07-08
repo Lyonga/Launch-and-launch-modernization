@@ -1,4 +1,4 @@
-name: Build and Create ECS, docker image and deploy to ECR 
+name: Build Docker image and Create ECS 
 
 on:
  
