@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "my-ews-baket"
+    bucket         = "charlyoinfotect.cm"
     region         = "us-east-1"
     key            = "Non-Modularized/ECS-Fargate/terraform.tfstate"
-    dynamodb_table = "Lock-Files"
+    #dynamodb_table = "Lock-Files"
     encrypt = true
   }
   required_version = ">=0.13.0"
