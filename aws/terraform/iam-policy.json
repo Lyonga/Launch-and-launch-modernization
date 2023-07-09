@@ -12,6 +12,33 @@
                 "logs:PutLogEvents"
             ],
             "Resource": "*"
-        }
+        },
+        {
+      "Sid": "ECSTaskELBPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "elasticloadbalancing:RegisterTargets",
+        "elasticloadbalancing:DeregisterTargets",
+        "elasticloadbalancing:DescribeTargetHealth"
+      ],
+      "Resource": "arn:aws:elasticloadbalancing:us-east-1:612958166077:targetgroup/Main-TG/6a1e5008f7533dbb"
+    }, 
+    {
+      "Sid": "ECSTaskPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "ecs:RunTask",
+        "ecs:StopTask",
+        "ecs:DescribeTasks",
+        "ecs:ListTasks",
+        "ecs:DescribeContainerInstances",
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeServices",
+        "ecs:UpdateService",
+        "ecs:CreateCluster",
+        "ecs:RegisterTaskDefinition"
+      ],
+      "Resource": "*"
+    }
     ]
 }
