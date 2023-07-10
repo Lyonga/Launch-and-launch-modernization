@@ -1,4 +1,4 @@
-name: Build Docker image and Create ECS 
+name: DEPLOY ECS SERVICE
 
 on:
  
