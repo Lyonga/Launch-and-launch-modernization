@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "TD" {
   container_definitions = jsonencode([
     {
       name      = "main-container"
-      image     = "728738226157.dkr.ecr.us-east-1.amazonaws.com/nginx-images"
+      image     = "612958166077.dkr.ecr.us-east-1.amazonaws.com/test:latest"
       cpu       = 1024
       memory    = 2048
       essential = true
