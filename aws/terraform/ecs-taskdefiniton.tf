@@ -20,6 +20,16 @@ resource "aws_ecs_task_definition" "TD" {
           hostPort      = 80
         }
       ]
+      secrets = [
+      {
+        name      = "USERNAME"
+        valueFrom = aws_secretsmanager_secret.username_secret.arn
+      },
+      {
+        name      = "PASSWORD"
+        valueFrom = aws_secretsmanager_secret.password_secret.arn
+      }
+    ]
     }
   ])
 }
