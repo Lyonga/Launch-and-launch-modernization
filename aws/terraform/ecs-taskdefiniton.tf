@@ -23,11 +23,11 @@ resource "aws_ecs_task_definition" "TD" {
       secrets = [
       {
         name      = "USERNAME"
-        valueFrom = aws_secretsmanager_secret.username_secret.arn
+        valueFrom = aws_secretsmanager_secret.username.arn
       },
       {
         name      = "PASSWORD"
-        valueFrom = aws_secretsmanager_secret.password_secret.arn
+        valueFrom = aws_secretsmanager_secret.password.arn
       }
     ]
     }
