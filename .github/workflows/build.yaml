@@ -3,7 +3,7 @@ name: Build docker image and deploy to ECR
 on:
  
   push:
-    branches: [ main ]
+    branches: [ test ]
 
 jobs:
   
