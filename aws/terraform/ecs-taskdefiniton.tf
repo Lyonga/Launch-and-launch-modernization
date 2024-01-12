@@ -1,6 +1,8 @@
 resource "aws_ecs_task_definition" "TD" {
   family                   = "Nginx-TD"
   requires_compatibilities = ["FARGATE"]
+  network_mode       =       "awsvpc"
+  task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn       = aws_iam_role.iam-role.arn
   network_mode             = "awsvpc"
   cpu                      = 1024
@@ -12,6 +14,7 @@ resource "aws_ecs_task_definition" "TD" {
       cpu       = 1024
       memory    = 2048
       essential = true
+      networkMode = awsvpc
       portMappings = [
         {
           containerPort = 80
