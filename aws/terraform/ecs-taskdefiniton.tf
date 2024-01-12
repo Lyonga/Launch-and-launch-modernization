@@ -14,7 +14,6 @@ resource "aws_ecs_task_definition" "TD" {
       cpu       = 1024
       memory    = 2048
       essential = true
-      networkMode = awsvpc
       portMappings = [
         {
           containerPort = 80
