@@ -1,7 +1,7 @@
 resource "aws_ecs_task_definition" "TD" {
   family                   = "Nginx-TD"
   requires_compatibilities = ["FARGATE"]
-  network_mode       =       "awsvpc"
+  #network_mode       =       "awsvpc"
   task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn       = aws_iam_role.iam-role.arn
   network_mode             = "awsvpc"
