@@ -1,4 +1,4 @@
-resource "aws_secretsmanager_secret" "username_secret" {
+resource "aws_secretsmanager_secret" "username" {
   name = "username"
 }
 
@@ -7,7 +7,7 @@ resource "aws_secretsmanager_secret_version" "username_secret" {
   secret_string = ""
 }
 
-resource "aws_secretsmanager_secret" "password_secret" {
+resource "aws_secretsmanager_secret" "password" {
   name = "password"
 }
 
