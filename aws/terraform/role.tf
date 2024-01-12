@@ -1,5 +1,5 @@
 resource "aws_iam_role" "task_role" {
-  name = "ecs_tasks-${var.name}-role"
+  name = "task-role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -18,7 +18,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "task_role_policy" {
-  name = "ecs_tasks-${var.name}-policy"
+  name = "task-policy"
   role = aws_iam_role.task_role.id
 
   policy = <<EOF
