@@ -6,8 +6,8 @@ on:
     branches: [ main ]
     paths:
       - "aws/terraform/**"
-    paths-ignore:
-      - "aws/terraform-2/one-env/**"
+#    paths-ignore:
+#      - "aws/terraform-2/one-env/**"
 jobs:
   
   build:
