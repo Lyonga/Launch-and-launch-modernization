@@ -116,4 +116,4 @@ resource "aws_s3_bucket_public_access_block" "config_bucket" {
   restrict_public_buckets = true
   depends_on = [aws_s3_bucket.config_bucket]
 }
-//test
+//test new
