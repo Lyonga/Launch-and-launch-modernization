@@ -98,23 +98,35 @@ resource "aws_s3_bucket" "config_bucket" {
 
 }
 
-#resource "aws_s3_bucket_server_side_encryption_configuration" "bucket-encryption" {
-#  bucket = aws_s3_bucket.config_bucket.bucket
-#
-#  rule {
-#    apply_server_side_encryption_by_default {
-#      sse_algorithm = "AES256"
-#    }
-#  }
-#}
-#
-#resource "aws_s3_bucket_public_access_block" "config_bucket" {
-#  bucket = aws_s3_bucket.config_bucket.id
-#
-#  block_public_acls       = true
-#  block_public_policy     = true
-#  ignore_public_acls      = true
-#  restrict_public_buckets = true
-#  depends_on = [aws_s3_bucket.config_bucket]
-#}
+resource "aws_s3_bucket_policy" "config_bucket_policy" {
+  bucket = aws_s3_bucket.config_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = [
+          "s3:GetBucketAcl",
+          "s3:GetBucketPolicy"
+        ],
+        Effect = "Allow",
+        Resource = aws_s3_bucket.config_bucket.arn,
+        Principal = {
+          Service = "config.amazonaws.com"
+        },
+      },
+      {
+        Action = [
+          "s3:PutObject"
+        ],
+        Effect = "Allow",
+        Resource = "${aws_s3_bucket.config_bucket.arn}/*",
+        Principal = {
+          Service = "config.amazonaws.com"
+        },
+      }
+    ],
+  })
+}
+
 //test new
