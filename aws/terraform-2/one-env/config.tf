@@ -44,6 +44,7 @@ resource "aws_config_config_rule" "s3_bucket_public_read_prohibited" {
 }
 
 //SNS
+
 resource "aws_sns_topic" "config_topic" {
   name = "aws-config-notifications"
 }
