@@ -30,6 +30,6 @@ jobs:
 
       - name: Deploy Terraform for AWS config
         run: |
-          cd aws/terraform 
+          cd aws/terraform-2/one-env 
           terraform init
-          terraform destroy -auto-approve
+          terraform apply -auto-approve
