@@ -1,11 +1,12 @@
 name: DEPLOY AWS CONFIG
 
 on:
-
   push:
     branches: [ main ]
     paths:
       - "aws/terraform-2/one-env/**"
+    paths-ignore:
+      - "aws/terraform/**"
 jobs:
 
   build:
@@ -33,4 +34,4 @@ jobs:
         run: |
           cd aws/terraform 
           terraform init
-          terraform apply -auto-approve
+          terraform destroy -auto-approve
