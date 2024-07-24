@@ -48,4 +48,4 @@ jobs:
       run: |
         cd aws/terraform 
         terraform init
-        terraform destroy -auto-approve
+        terraform apply -auto-approve
