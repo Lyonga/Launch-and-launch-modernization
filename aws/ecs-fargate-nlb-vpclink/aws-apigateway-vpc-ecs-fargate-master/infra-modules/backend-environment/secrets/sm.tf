@@ -13,5 +13,5 @@ resource "aws_secretsmanager_secret" "amplifier" {
 
 resource "aws_secretsmanager_secret_version" "password_secret" {
   secret_id     = aws_secretsmanager_secret.amplifier.id
-  secret_string = "test"
+  secret_string = "testp"
 }
