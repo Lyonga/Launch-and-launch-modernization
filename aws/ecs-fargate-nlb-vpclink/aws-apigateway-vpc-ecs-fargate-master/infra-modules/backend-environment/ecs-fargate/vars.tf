@@ -16,6 +16,7 @@ variable "environment" {
 variable "fargate_cpu" {
   type = number
   description = "Fargate cpu allocation"
+  default = 128
 }
 
 variable "fargate_memory" {
@@ -36,11 +37,13 @@ variable "private_subnet_ids" {
 variable "vpc_id" {
   type = string 
   description = "The id for the VPC where the ECS container instance should be deployed"
+  default = ""
 }
 
 variable "cluster_id" {
   type = string 
   description = "Cluster ID"
+  default = ""
 }
 
 variable "app_count" {

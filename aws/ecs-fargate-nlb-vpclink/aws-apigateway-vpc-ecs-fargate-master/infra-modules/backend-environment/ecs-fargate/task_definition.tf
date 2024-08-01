@@ -1,4 +1,4 @@
-resource "aws_ecs_task_definition" "main" {
+resource "aws_ecs_task_definition" "amplifier" "{
   family             = var.name
   task_role_arn = aws_iam_role.task_role.arn
   execution_role_arn = aws_iam_role.main_ecs_tasks.arn
@@ -8,18 +8,36 @@ resource "aws_ecs_task_definition" "main" {
   memory = var.fargate_memory
   container_definitions = jsonencode([
     {
-      name : var.name,
-      image : var.app_image,
-      cpu : var.fargate_cpu,
-      memory : var.fargate_memory,
-      networkMode : "awsvpc",
+      name : var.name
+      image : "612958166077.dkr.ecr.us-east-1.amazonaws.com/test:latest"
+      cpu : var.fargate_cpu
+      memory : var.fargate_memory
+      networkMode : "awsvpc"
+      readonlyRootFilesystem = false
+      memory                 = 1024
+      essential              = true
+
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group         = "/ecs/amplifier/awslog"
+          awslogs-stream-prefix = "ecs"
+          awslogs-region        = "us-east-1"
+          awslogs-create-group  = "true"
+        }
+      }
       portMappings : [
         {
           containerPort : var.app_port
-          protocol : "tcp",
+          protocol : "tcp"
           hostPort : var.app_port
         }
       ]
     }
   ])
+
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "X86_64"
+  }
 }

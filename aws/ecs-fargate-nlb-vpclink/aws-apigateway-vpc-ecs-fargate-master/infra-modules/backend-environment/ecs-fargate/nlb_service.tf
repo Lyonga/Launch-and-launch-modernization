@@ -2,7 +2,7 @@ resource "aws_lb" "nlb" {
   name               = "nlb-${var.name}"
   internal           = true
   load_balancer_type = "network"
-  subnets            = var.private_subnet_ids
+  subnets            = [aws_subnet.public1.id, aws_subnet.public2.id]
 
   enable_deletion_protection = false
 

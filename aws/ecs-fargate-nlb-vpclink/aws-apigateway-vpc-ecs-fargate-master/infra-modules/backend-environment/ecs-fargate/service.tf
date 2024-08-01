@@ -1,13 +1,13 @@
-resource "aws_ecs_service" "main" {
+resource "aws_ecs_service" "amplifier" {
   name            = "${var.name}-service"
   cluster         = var.cluster_id
-  task_definition = aws_ecs_task_definition.main.family
+  task_definition = aws_ecs_task_definition.amplifier.family
   desired_count   = var.app_count
   launch_type     = "FARGATE"
 
   network_configuration {
     security_groups = ["${var.aws_security_group_ecs_tasks_id}"]
-    subnets         = var.private_subnet_ids
+    subnets         = [aws_subnet.public1.id, aws_subnet.public2.id]
   }
 
   load_balancer {
@@ -17,6 +17,12 @@ resource "aws_ecs_service" "main" {
   }
 
   depends_on = [
-    aws_ecs_task_definition.main,
+    aws_ecs_task_definition.amplifier,
   ]
+
+  service_registries {
+    registry_arn   = aws_service_discovery_service.amplifier.arn
+    container_name = var.ecs_service_name
+
+  }
 }

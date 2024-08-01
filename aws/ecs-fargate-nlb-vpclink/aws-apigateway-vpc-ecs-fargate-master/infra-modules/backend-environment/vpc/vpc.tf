@@ -1,5 +1,5 @@
 resource "aws_vpc" "custom_vpc" {
-  cidr_block       = var.vpc_cidr_block
+  cidr_block       = "10.0.0.0/16"
   enable_dns_support = true
   enable_dns_hostnames = true
 
@@ -8,18 +8,77 @@ resource "aws_vpc" "custom_vpc" {
   }
 }
 
-### VPC Network Setup
-
-# Create the private subnets
-resource "aws_subnet" "private_subnet" {
-  count = var.number_of_private_subnets
-  vpc_id            = "${aws_vpc.custom_vpc.id}"
-  cidr_block = "${element(var.private_subnet_cidr_blocks, count.index)}"
-  availability_zone = "${element(var.availability_zones, count.index)}"
+resource "aws_subnet" "private1" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = "10.0.1.0/16"
+  map_public_ip_on_launch = false
+  availability_zone       = "us-east-1a"
 
   tags = {
     Name = "${var.private_subnet_tag_name}-${var.environment}"
   }
+}
+
+
+resource "aws_subnet" "private2" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = "10.0.2.0/16"
+  map_public_ip_on_launch = false
+  availability_zone       = "us-east-1b"
+
+  tags = {
+    Name = "${var.private_subnet_tag_name}-${var.environment}"
+  }
+}
+
+resource "aws_subnet" "public1" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = "10.3.0.0/16"
+  map_public_ip_on_launch = true
+  availability_zone       = "us-east-1a"
+
+  tags = {
+    Name = "${var.private_subnet_tag_name}-${var.environment}"
+  }
+}
+resource "aws_subnet" "public2" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = "10.2.0.0/16"
+  map_public_ip_on_launch = true
+  availability_zone       = "us-east-1b"
+
+  tags = {
+    Name = "${var.private_subnet_tag_name}-${var.environment}"
+  }
+}
+
+resource "aws_internet_gateway" "IG" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "Main-Internet-Gateway"
+  }
+}
+
+
+resource "aws_route_table" "RT" {
+  vpc_id = aws_vpc.vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.IG.id
+  }
+}
+
+
+resource "aws_route_table_association" "RTA1" {
+  subnet_id      = aws_subnet.subnet1.id
+  route_table_id = aws_route_table.RT.id
+}
+
+
+resource "aws_route_table_association" "RTA2" {
+  subnet_id      = aws_subnet.subnet2.id
+  route_table_id = aws_route_table.RT.id
 }
 
 ### Security Group Setup
