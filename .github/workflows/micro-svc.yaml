@@ -5,12 +5,12 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "aws/ecs-fargate-nlb-vpclink/**"
+      - "aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/**"
 jobs:
   
   build:
     
-    name: Deploy Infra with Image
+    name: Deploy Infra
     runs-on: ubuntu-latest
 
    
@@ -44,6 +44,6 @@ jobs:
 
     - name: Deploy Terraform for ECS
       run: |
-        cd aws/terraform 
+        cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate
         terraform init
         terraform apply -auto-approve
