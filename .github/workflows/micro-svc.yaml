@@ -44,7 +44,6 @@ jobs:
 
     - name: Deploy Terraform for ECS
       run: |
-        #cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment
-        cd aws/terraform
+        cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment
         terraform init
         terraform destroy -auto-approve
