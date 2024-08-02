@@ -35,7 +35,7 @@ variable "app_port" {
 variable "public_subnet_ids" {
   type = list(string)
   description = "IDs for private subnets"
-  default = "[aws_subnet.public1.id, aws_subnet.public2.id]"
+  default = []
 }
 
 variable "vpc_id" {
