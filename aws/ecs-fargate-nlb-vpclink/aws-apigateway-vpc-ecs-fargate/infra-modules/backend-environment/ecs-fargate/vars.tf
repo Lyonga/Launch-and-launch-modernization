@@ -1,6 +1,7 @@
 variable "name" {
   type        = string
   description = "The name of the application and the family"
+  default     = "amplifier-task"
 }
 
 variable "app_image" {
@@ -16,17 +17,19 @@ variable "environment" {
 variable "fargate_cpu" {
   type = number
   description = "Fargate cpu allocation"
-  default = 128
+  default = 512
 }
 
 variable "fargate_memory" {
   type = number
   description = "Fargate memory allocation"
+  default     = 1024
 }
 
 variable "app_port" {
   type = number
   description = "Application port"
+  default     = 80
 }
 
 variable "private_subnet_ids" {
