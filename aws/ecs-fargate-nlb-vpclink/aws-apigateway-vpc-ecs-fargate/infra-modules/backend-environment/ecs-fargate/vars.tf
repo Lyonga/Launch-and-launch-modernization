@@ -32,7 +32,7 @@ variable "app_port" {
   default     = 80
 }
 
-variable "private_subnet_ids" {
+variable "public_subnet_ids" {
   type = list(string)
   description = "IDs for private subnets"
   default = "[aws_subnet.public1.id, aws_subnet.public2.id]"

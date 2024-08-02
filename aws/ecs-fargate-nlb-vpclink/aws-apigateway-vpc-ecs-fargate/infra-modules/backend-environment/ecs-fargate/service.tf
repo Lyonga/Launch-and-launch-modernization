@@ -7,7 +7,7 @@ resource "aws_ecs_service" "amplifier" {
 
   network_configuration {
     security_groups = ["${var.aws_security_group_ecs_tasks_id}"]
-    subnets         = [aws_subnet.public1.id, aws_subnet.public2.id]
+    subnets         = []
   }
 
   load_balancer {
