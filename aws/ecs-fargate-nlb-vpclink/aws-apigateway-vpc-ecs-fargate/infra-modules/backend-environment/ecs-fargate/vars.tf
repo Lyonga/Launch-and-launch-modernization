@@ -35,12 +35,13 @@ variable "app_port" {
 variable "private_subnet_ids" {
   type = list(string)
   description = "IDs for private subnets"
+  default = "[aws_subnet.public1.id, aws_subnet.public2.id]"
 }
 
 variable "vpc_id" {
   type = string 
   description = "The id for the VPC where the ECS container instance should be deployed"
-  default = ""
+  default = "aws_vpc.custom_vpc.id"
 }
 
 variable "cluster_id" {
