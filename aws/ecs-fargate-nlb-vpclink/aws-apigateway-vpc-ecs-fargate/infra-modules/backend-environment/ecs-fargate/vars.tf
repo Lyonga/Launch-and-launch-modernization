@@ -28,7 +28,7 @@ variable "fargate_memory" {
 
 variable "app_port" {
   type = number
-  description = "Application port"
+  description = "Application port number"
   default     = 80
 }
 
