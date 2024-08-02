@@ -10,7 +10,7 @@ jobs:
   
   build:
     
-    name: Build Image
+    name: Deploy Infra with Image
     runs-on: ubuntu-latest
 
    
