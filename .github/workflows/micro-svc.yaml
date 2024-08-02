@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/**"
+      - "aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment/**"
 jobs:
   
   build:
@@ -44,6 +44,7 @@ jobs:
 
     - name: Deploy Terraform for ECS
       run: |
-        cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate
+        #cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment
+        cd aws/terraform
         terraform init
-        terraform apply -auto-approve
+        terraform destroy -auto-approve
