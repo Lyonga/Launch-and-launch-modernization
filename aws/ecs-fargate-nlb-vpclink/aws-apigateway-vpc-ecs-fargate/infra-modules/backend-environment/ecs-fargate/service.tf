@@ -2,7 +2,8 @@ resource "aws_ecs_service" "amplifier" {
   name            = "${var.name}-service"
   cluster         = var.cluster_id
   task_definition = aws_ecs_task_definition.amplifier.family
-  desired_count   = var.app_count
+  #desired_count   = var.app_count
+  desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
