@@ -53,6 +53,7 @@ variable "cluster_id" {
 variable "app_count" {
   type = string 
   description = "The number of instances of the task definition to place and keep running."
+  default = 1
 }
 
 variable "aws_security_group_ecs_tasks_id" {
