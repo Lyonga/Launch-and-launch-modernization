@@ -51,7 +51,7 @@ variable "cluster_id" {
 }
 
 variable "app_count" {
-  type = string 
+  type = number 
   description = "The number of instances of the task definition to place and keep running."
   default = 1
 }
