@@ -6,12 +6,12 @@ variable "name" {
 
 variable "app_image" {
   type = string 
-  description = "Container image to be used for application in task definition file"
+  description = "Container image to be used by the  application in task definition file"
 }
 
 variable "environment" {
   type = string
-  description = "amplifier tes environment"
+  description = "amplifier test environment"
 }
 
 variable "fargate_cpu" {
