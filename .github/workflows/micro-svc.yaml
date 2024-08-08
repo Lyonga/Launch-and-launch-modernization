@@ -1,50 +1,78 @@
-name: DEPLOY amplifier SERVICE
+name: Manage Amplifier Service
 
 on:
- 
   push:
     branches: [ main ]
     paths:
       - "aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment/**"
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Choose the operation to perform: deploy or destroy'
+        required: true
+        default: 'deploy'
+        type: string
+
 jobs:
-  
-  build:
-    
+  deploy:
+    if: github.event_name == 'push' || github.event.inputs.operation == 'deploy'
     name: Deploy Infra
-    #runs-on: ubuntu-latest
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
-   
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Check out code
-      uses: actions/checkout@v2
-    
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION}}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: demo
-        IMAGE_TAG: latest
-      run: |
-        docker build -t 612958166077.dkr.ecr.us-east-1.amazonaws.com/launch:$IMAGE_TAG .
-        docker push 612958166077.dkr.ecr.us-east-1.amazonaws.com/launch:$IMAGE_TAG
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: demo
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-    - name: Install Terraform
-      uses: hashicorp/setup-terraform@v1
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
 
-    - name: Deploy Terraform for ECS
-      run: |
-        cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment
-        terraform init
-        terraform apply -auto-approve
+      - name: Deploy Terraform for ECS
+        run: |
+          cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment
+          terraform init
+          terraform apply -auto-approve
+
+  destroy:
+    if: github.event.inputs.operation == 'destroy'
+    name: Destroy Infra
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Destroy Terraform for ECS
+        run: |
+          cd aws/ecs-fargate-nlb-vpclink/aws-apigateway-vpc-ecs-fargate/infra-modules/backend-environment
+          terraform init
+          terraform destroy -auto-approve
