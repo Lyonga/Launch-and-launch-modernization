@@ -11,7 +11,7 @@ variable "app_image" {
 
 variable "environment" {
   type = string
-  description = "amplifier environment"
+  description = "amplifier test environment"
 }
 
 variable "fargate_cpu" {
