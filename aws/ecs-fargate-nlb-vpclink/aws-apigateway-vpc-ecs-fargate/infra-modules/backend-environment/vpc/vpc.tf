@@ -9,7 +9,7 @@ resource "aws_vpc" "custom_vpc" {
 }
 
 resource "aws_subnet" "private1" {
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id                  = aws_vpc.custom_vpc.id
   cidr_block              = "10.0.1.0/16"
   map_public_ip_on_launch = false
   availability_zone       = "us-east-1a"
@@ -21,7 +21,7 @@ resource "aws_subnet" "private1" {
 
 
 resource "aws_subnet" "private2" {
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id                  = aws_vpc.custom_vpc.id
   cidr_block              = "10.0.2.0/16"
   map_public_ip_on_launch = false
   availability_zone       = "us-east-1b"
@@ -32,7 +32,7 @@ resource "aws_subnet" "private2" {
 }
 
 resource "aws_subnet" "public1" {
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id                  = aws_vpc.custom_vpc.id
   cidr_block              = "10.3.0.0/16"
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
@@ -42,7 +42,7 @@ resource "aws_subnet" "public1" {
   }
 }
 resource "aws_subnet" "public2" {
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id                  = aws_vpc.custom_vpc.id
   cidr_block              = "10.2.0.0/16"
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1b"
@@ -53,7 +53,7 @@ resource "aws_subnet" "public2" {
 }
 
 resource "aws_internet_gateway" "IG" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.custom_vpc.id
 
   tags = {
     Name = "Main-Internet-Gateway"
@@ -152,6 +152,6 @@ resource "aws_security_group" "ecs_tasks" {
 # Route table and subnet associations
 resource "aws_route_table_association" "subnet_route_assoc" {
   count = var.number_of_private_subnets
-  subnet_id      = aws_subnet.private_subnet[count.index].id
+  subnet_id      = aws_subnet.private1[count.index].id
   route_table_id = aws_vpc.custom_vpc.default_route_table_id
 }

@@ -7,7 +7,7 @@ output vpc_id {
 }
 
 output private_subnet_ids {
-  value = aws_subnet.private_subnet.*.id
+  value = aws_subnet.private1.*.id
 }
 
 output ecs_tasks_security_group_id {
