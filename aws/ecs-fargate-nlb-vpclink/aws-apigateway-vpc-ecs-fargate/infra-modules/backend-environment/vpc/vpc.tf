@@ -10,7 +10,7 @@ resource "aws_vpc" "custom_vpc" {
 
 resource "aws_subnet" "private1" {
   vpc_id                  = aws_vpc.custom_vpc.id
-  cidr_block              = "10.0.1.0/16"
+  cidr_block              = "10.0.0.0/18"
   map_public_ip_on_launch = false
   availability_zone       = "us-east-1a"
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "private1" {
 
 resource "aws_subnet" "private2" {
   vpc_id                  = aws_vpc.custom_vpc.id
-  cidr_block              = "10.0.2.0/16"
+  cidr_block              = "10.0.64.0/18"
   map_public_ip_on_launch = false
   availability_zone       = "us-east-1b"
 
@@ -33,7 +33,7 @@ resource "aws_subnet" "private2" {
 
 resource "aws_subnet" "public1" {
   vpc_id                  = aws_vpc.custom_vpc.id
-  cidr_block              = "10.3.0.0/16"
+  cidr_block              = "10.0.128.0/18"
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
 
@@ -43,7 +43,7 @@ resource "aws_subnet" "public1" {
 }
 resource "aws_subnet" "public2" {
   vpc_id                  = aws_vpc.custom_vpc.id
-  cidr_block              = "10.2.0.0/16"
+  cidr_block              = "0.0.192.0/18"
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1b"
 
@@ -54,15 +54,23 @@ resource "aws_subnet" "public2" {
 
 resource "aws_internet_gateway" "IG" {
   vpc_id = aws_vpc.custom_vpc.id
-
+  #subnet_id     = var.public_subnet_ids[0]
   tags = {
     Name = "Main-Internet-Gateway"
   }
 }
 
+# resource "aws_internet_gateway" "IG2" {
+#   vpc_id = aws_vpc.custom_vpc.id
+#   #subnet_id     = var.public_subnet_ids[1]
+#   tags = {
+#     Name = "Main-Internet-Gateway"
+#   }
+# }
+
 
 resource "aws_route_table" "RT" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.custom_vpc.id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.IG.id

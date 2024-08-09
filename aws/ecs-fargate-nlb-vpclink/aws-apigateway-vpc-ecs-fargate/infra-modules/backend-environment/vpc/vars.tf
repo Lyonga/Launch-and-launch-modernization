@@ -80,3 +80,8 @@ variable "availability_zones" {
   type  = list(string)
   description = "List of availability zones for the selected region"
 }
+
+variable "public_subnet_ids" {
+  description = "List of public subnet IDs"
+  type        = list(string)
+}
