@@ -30,6 +30,7 @@ variable "app_port" {
 variable "app_image" {
   type = string 
   description = "Container image to be used for application in task definition file"
+  default = "612958166077.dkr.ecr.us-east-1.amazonaws.com/test:latest"
 }
 
 variable "availability_zones" {
