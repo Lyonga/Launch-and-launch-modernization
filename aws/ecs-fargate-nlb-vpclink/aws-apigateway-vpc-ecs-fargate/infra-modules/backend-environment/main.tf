@@ -12,7 +12,7 @@ module "vpc_for_ecs_fargate" {
   # main_pvt_route_table_id = var.main_pvt_route_table_id
   availability_zones = var.availability_zones
   region = var.region
-  public_subnet_ids = var.public_subnet_ids
+  #public_subnet_ids = var.public_subnet_ids
 }
 
 # ECS cluster
