@@ -1,7 +1,7 @@
-variable "profile" {
-  description = "AWS profile"
-  type        = string
-}
+# variable "profile" {
+#   description = "AWS profile"
+#   type        = string
+# }
 
 variable "region" {
   description = "aws region to deploy to"
@@ -24,6 +24,7 @@ variable "environment" {
 variable "app_port" {
   description = "Application port"
   type = number
+  default = 80
 }
 
 variable "app_image" {
@@ -34,6 +35,10 @@ variable "app_image" {
 variable "availability_zones" {
   type  = list(string)
   description = "List of availability zones for the selected region"
+  default = [
+    "us-east-1a",
+    "us-east-1b"
+  ]
 }
 
 variable "app_count" {

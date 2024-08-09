@@ -36,7 +36,7 @@ module ecs_task_definition_and_service {
   cluster_id = module.ecs_cluster.id 
   app_count = var.app_count
   aws_security_group_ecs_tasks_id = module.vpc_for_ecs_fargate.ecs_tasks_security_group_id
-  private_subnet_ids = module.vpc_for_ecs_fargate.private_subnet_ids
+  public_subnet_ids = module.vpc_for_ecs_fargate.private_subnet_ids
 }
 
 # API Gateway and VPC link
