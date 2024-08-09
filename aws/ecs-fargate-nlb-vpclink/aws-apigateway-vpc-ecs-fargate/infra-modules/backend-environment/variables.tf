@@ -6,19 +6,19 @@
 variable "region" {
   description = "aws region to deploy to"
   type        = string
-  default = us-east-1
+  default = "us-east-1"
 }
 
 variable "platform_name" {
   description = "The name of the platform"
   type = string
-  default = amplifier
+  default = "amplifier"
 }
 
 variable "environment" {
   description = "Applicaiton environment"
   type = string
-  default = dev
+  default = "dev"
 }
 
 variable "app_port" {
