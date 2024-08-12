@@ -14,7 +14,7 @@ module "vpc_for_ecs_fargate" {
   availability_zones = var.availability_zones
   region = var.region
   #public_subnet_ids = var.public_subnet_ids
-  public_subnet_ids = module.vpc.public_subnet_ids
+  public_subnet_ids = module.custom_vpc.public_subnet_ids
 }
 
 # ECS cluster
