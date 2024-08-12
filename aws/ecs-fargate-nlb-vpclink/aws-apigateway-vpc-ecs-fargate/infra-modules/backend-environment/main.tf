@@ -3,6 +3,7 @@ module "vpc_for_ecs_fargate" {
   source = "./vpc"
   vpc_tag_name = "${var.platform_name}-vpc"
   number_of_private_subnets = 2
+  #Snumber_of_public_subnets = 2
   private_subnet_tag_name = "${var.platform_name}-private-subnet"
   # route_table_tag_name = "${var.platform_name}-rt"
   environment = var.environment
@@ -12,7 +13,8 @@ module "vpc_for_ecs_fargate" {
   # main_pvt_route_table_id = var.main_pvt_route_table_id
   availability_zones = var.availability_zones
   region = var.region
-  public_subnet_ids = var.public_subnet_ids
+  #public_subnet_ids = var.public_subnet_ids
+  public_subnet_ids = module.vpc.public_subnet_ids
 }
 
 # ECS cluster
